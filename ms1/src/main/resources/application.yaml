@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ms1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+kafka:
+  bootstrap-servers: localhost:9092, localhost:9093, localhost:9094 # kafka 브로커 주소

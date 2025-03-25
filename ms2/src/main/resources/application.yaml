@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: ms2
+server:
+  port: 8082
+
+kafka:
+  bootstrap-servers: localhost:9092, localhost:9093, localhost:9094 # kafka 브로커 주소
