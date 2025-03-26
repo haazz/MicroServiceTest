@@ -18,36 +18,36 @@ import java.util.Map;
 
 @Configuration
 public class KafkaProducerConfig {
-    @Value("${kafka.bootstrap-servers}")
-    private String bootstrapServers;
-
-    @Bean
-    public ProducerFactory<String, String> producerFactory() {
-        Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, org.apache.kafka.common.serialization.StringSerializer.class);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, org.apache.kafka.common.serialization.StringSerializer.class);
-        configProps.put(ProducerConfig.RETRIES_CONFIG, 3); // 재시도
-        configProps.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 40000); // 타임아웃
-        return new DefaultKafkaProducerFactory<>(configProps);
-    }
-
-    @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
-    }
-
-    @Bean
-    public ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate(
-            ProducerFactory<String, String> pf,
-            ConcurrentMessageListenerContainer<String, String> repliesContainer) {
-        return new ReplyingKafkaTemplate<>(pf, repliesContainer);
-    }
-
-    @Bean
-    public ConcurrentMessageListenerContainer<String, String> repliesContainer(
-            ConsumerFactory<String, String> cf) {
-        ContainerProperties containerProperties = new ContainerProperties("health-reply"); // 응답 받을 토픽
-        return new ConcurrentMessageListenerContainer<>(cf, containerProperties);
-    }
+//    @Value("${kafka.bootstrap-servers}")
+//    private String bootstrapServers;
+//
+//    @Bean
+//    public ProducerFactory<String, String> producerFactory() {
+//        Map<String, Object> configProps = new HashMap<>();
+//        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+//        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, org.apache.kafka.common.serialization.StringSerializer.class);
+//        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, org.apache.kafka.common.serialization.StringSerializer.class);
+//        configProps.put(ProducerConfig.RETRIES_CONFIG, 3); // 재시도
+//        configProps.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 40000); // 타임아웃
+//        return new DefaultKafkaProducerFactory<>(configProps);
+//    }
+//
+//    @Bean
+//    public KafkaTemplate<String, String> kafkaTemplate() {
+//        return new KafkaTemplate<>(producerFactory());
+//    }
+//
+//    @Bean
+//    public ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate(
+//            ProducerFactory<String, String> pf,
+//            ConcurrentMessageListenerContainer<String, String> repliesContainer) {
+//        return new ReplyingKafkaTemplate<>(pf, repliesContainer);
+//    }
+//
+//    @Bean
+//    public ConcurrentMessageListenerContainer<String, String> repliesContainer(
+//            ConsumerFactory<String, String> cf) {
+//        ContainerProperties containerProperties = new ContainerProperties("health-reply"); // 응답 받을 토픽
+//        return new ConcurrentMessageListenerContainer<>(cf, containerProperties);
+//    }
 }
